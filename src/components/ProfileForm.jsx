@@ -1,8 +1,37 @@
 import React from "react";
+import { useRef } from 'react';
 
-const ProfileForm = () => {
+function ProfileForm({profileData, onSave}) {
+    const nameRef = useRef(profileData.name);
+    const titleRef = useRef(profileData.title);
+    const emailRef = useRef(profileData.email);
+    const birthdayRef = useRef(profileData.birthday);
+    const birthmonthRef = useRef(profileData.birthmonth);
+    const birthyearRef = useRef(profileData.birthyear);
+    const countryRef = useRef(profileData.country);
+    const stateRef = useRef(profileData.state);
+    const zipcodeRef = useRef(profileData.zipcode);
+    const phoneRef = useRef(profileData.phone);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onSave({
+        name: nameRef.current.value,
+        title: titleRef.current.value,
+        email: emailRef.current.value,
+        birthday: birthdayRef.current.value,
+        birthmonth: birthmonthRef.current.value,
+        birthyear: birthyearRef.current.value,
+        country: countryRef.current.value,
+        state: stateRef.current.value,
+        zipcode: zipcodeRef.current.value,
+        phone: phoneRef.current.value,
+        });
+    };
+
 
     return (
+            <form onSubmit={handleSubmit}>
               <div className="bg-white m-auto rounded shadow-lg md:p-8">
                 <div className="grid gap-4 gap-y-2 text-sm">
                   <div className="text-gray-600">
@@ -14,69 +43,51 @@ const ProfileForm = () => {
                     <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-6">
                       <div className="md:col-span-6 ">
                         <label for="full_name">Full Name</label>
-                        <input type="text" name="full_name" id="full_name" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
+                        <input ref={nameRef} defaultValue={profileData.name} disabled type="text" name="full_name" id="full_name" className="disabled:text-gray-400 h-10 border mt-1 rounded px-4 w-full bg-gray-50" />
                       </div>
 
                       <div className="md:col-span-6 ">
                         <label for="full_name">Title</label>
-                        <input type="text" name="full_name" id="full_name" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
+                        <input ref={titleRef} defaultValue={profileData.title} disabled type="text" name="full_name" id="full_name" className="disabled:text-gray-400 h-10 border mt-1 rounded px-4 w-full bg-gray-50" />
                       </div>
         
                       <div className="md:col-span-6">
                         <label for="email">Email Address</label>
-                        <input type="text" name="email" id="email" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="email@domain.com" />
+                        <input ref={emailRef} defaultValue={profileData.email} disabled type="text" name="email" id="email" className="disabled:text-gray-400 h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="email@domain.com" />
                       </div>
 
                       <label className="md:col-span-6 text-center">Birthday</label>
                       <div className="md:col-span-2">
-                        <input type="text" name="birthday" id="birthday" className="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="01" value="" />
+                        <input ref={birthdayRef} defaultValue={profileData.birthday} disabled type="text" name="birthday" id="birthday" className="disabled:text-gray-400 transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="01" />
                       </div>
                       <div className="md:col-span-2">
-                        <input type="text" name="birthmonth" id="birthmonth" className="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="December" value="" />
+                        <input ref={birthmonthRef} defaultValue={profileData.birthmonth} disabled type="text" name="birthmonth" id="birthmonth" className="disabled:text-gray-400 transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="December" />
                       </div>
                       <div className="md:col-span-2">
-                        <input type="text" name="birthyear" id="birthyear" className="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="1998" value="" />
+                        <input ref={birthyearRef} defaultValue={profileData.birthyear} disabled type="text" name="birthyear" id="birthyear" className="disabled:text-gray-400 transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="1998" />
                       </div>  
         
                       <div className="md:col-span-3">
-                        <label for="country">Country / region</label>
+                        <label for="country">Country</label>
                         <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                          <input name="country" id="country" placeholder="Country" className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent" value="" />
-                          <button tabindex="-1" className="cursor-pointer outline-none focus:outline-none transition-all text-gray-300 hover:text-red-600">
-                            <svg className="w-4 h-4 mx-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <line x1="18" y1="6" x2="6" y2="18"></line>
-                              <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                          </button>
-                          <button tabindex="-1" for="show_more" className="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-blue-600">
-                            <svg className="w-4 h-4 mx-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
-                          </button>
+                          <input ref={countryRef} defaultValue={profileData.country} disabled name="country" id="country" placeholder="Country" className="disabled:text-gray-400 px-4 appearance-none outline-none text-gray-800 w-full bg-transparent" />
                         </div>
                       </div>
         
                       <div className="md:col-span-3">
-                        <label for="state">State / province</label>
+                        <label for="state">State</label>
                         <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                          <input name="state" id="state" placeholder="State" className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent" value="" />
-                          <button tabindex="-1" className="cursor-pointer outline-none focus:outline-none transition-all text-gray-300 hover:text-red-600">
-                            <svg className="w-4 h-4 mx-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <line x1="18" y1="6" x2="6" y2="18"></line>
-                              <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                          </button>
-                          <button tabindex="-1" for="show_more" className="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-blue-600">
-                            <svg className="w-4 h-4 mx-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
-                          </button>
+                          <input ref={stateRef} defaultValue={profileData.state} disabled name="state" id="state" placeholder="State" className="disabled:text-gray-400 px-4 appearance-none outline-none text-gray-800 w-full bg-transparent" />
                         </div>
                       </div>
         
                       <div className="md:col-span-3">
                         <label for="zipcode">Zipcode</label>
-                        <input type="text" name="zipcode" id="zipcode" className="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="" value="" />
+                        <input ref={zipcodeRef} defaultValue={profileData.zipcode} disabled type="text" name="zipcode" id="zipcode" className="disabled:text-gray-400 transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="" />
                       </div>
                       <div className="md:col-span-3">
                         <label for="phone">Phone Number</label>
-                        <input type="text" name="phone" id="phone" className="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="" value="" />
+                        <input ref={phoneRef} defaultValue={profileData.phone} disabled type="text" name="phone" id="phone" className="disabled:text-gray-400 transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="" />
                       </div>
         
                       <div className="md:col-span-6">
@@ -89,14 +100,16 @@ const ProfileForm = () => {
               
                       <div className="md:col-span-6 text-right">
                         <div className="inline-flex items-end">
-                          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save</button>
+                          <input type="submit" disabled className="disabled:hidden bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" value="Save"/>
                         </div>
                       </div>
         
                     </div>
                   </div>
                 </div>
-              </div>        
+              </div> 
+            </form>
+
 
     );
 }
